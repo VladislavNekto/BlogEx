@@ -1,0 +1,7 @@
+<section class="collumn">
+<a href={Routes.post_path(@conn, :new)} class="input-link">Create post
+    <span class="fa fa-plus"></span>
+</a>
+<img src={ Routes.static_path(@conn, "/images/phoenix.png") } alt="cover" class="cover">
+<%= render "_posts_list.html", assigns %>
+</section>

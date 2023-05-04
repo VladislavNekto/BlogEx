@@ -1,0 +1,39 @@
+<div class="paginator">
+  <ul class="pagination">
+    <%= if @page-10 > 1 do %>
+        <li class="page-item"><a class="page-link" href={ new_path(@conn, :page, 1) }>First</a></li>
+    <% end %>
+
+    <%= if @page > 1+10  do %>
+        <li class="page-item"><a class="page-link" href={ new_path(@conn, :page, @page - 10) }>-10</a></li>
+    <% end %>
+
+    <%= if @page > 1 do %>
+        <li class="page-item"><a class="page-link" href={ new_path(@conn, :page, @page - 1) }>Prev</a></li>
+    <% end %>
+
+    <%= for page_number <- @page-10..@page+10 do %>
+      <%= if page_number < 1 or page_number > @total_pages do %>
+            <%= "" %>
+      <% else %>
+        <%= if page_number == @page do %>
+          <li class="page-item active"><a class="page-link" href={ new_path(@conn, :page, page_number) }><%= page_number %></a></li>
+        <% else %>
+          <li class="page-item"><a class="page-link" href={ new_path(@conn, :page, page_number) }><%= page_number %></a></li>
+        <% end %>
+      <% end %>
+    <% end %>
+
+    <%= if @page < @total_pages do %>
+        <li class="page-item"><a class="page-link" href={ new_path(@conn, :page, @page + 1) }>Next</a></li>
+    <% end %>
+
+    <%= if @page < @total_pages-10  do %>
+        <li class="page-item"><a class="page-link" href={ new_path(@conn, :page, @page + 10) }>+10</a></li>
+    <% end %>
+
+    <%= if @page+10 < @total_pages do %>
+        <li class="page-item"><a class="page-link" href={ new_path(@conn, :page, @total_pages) }>Last</a></li>
+    <% end %>
+  </ul>
+</div>

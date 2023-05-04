@@ -1,0 +1,70 @@
+<table>
+  <thead>
+    <tr>
+      <th>
+        <a class="p" href={ Routes.admin_path(@conn, :index, sort_by: "id", tab: "posts", order: toggle_direction(@order)) }>
+        ID
+        <%= if @sort_by == :id do %>
+            <span class={ "fa fa-sort-#{@order}" }></span>
+        <% end %>
+        </a>
+      </th>
+      <th>
+        <a class="p" href={ Routes.admin_path(@conn, :index, sort_by: "title", tab: "posts", order: toggle_direction(@order)) }>
+        Title
+        <%= if @sort_by == :title do %>
+            <span class={ "fa fa-sort-#{@order}" }></span>
+        <% end %>
+        </a>
+      </th>
+      <th>
+        <a class="p" href={ Routes.admin_path(@conn, :index, sort_by: "body", tab: "posts", order: toggle_direction(@order)) }>
+        Body
+        <%= if @sort_by == :body do %>
+            <span class={ "fa fa-sort-#{@order}" }></span>
+        <% end %>
+        </a>
+      </th>
+      <th>
+        <a class="p" href={ Routes.admin_path(@conn, :index, sort_by: "user_id", tab: "posts", order: toggle_direction(@order)) }>
+        User id
+        <%= if @sort_by == :user_id do %>
+            <span class={ "fa fa-sort-#{@order}" }></span>
+        <% end %>
+        </a>
+      </th>
+      <th>
+        <a href={ Routes.admin_path(@conn, :index, sort_by: "inserted_at", tab: "posts", order: toggle_direction(@order)) }>
+        Created at
+        <%= if @sort_by == :inserted_at do %>
+            <span class={ "fa fa-sort-#{@order}" }></span>
+        <% end %>
+        </a>
+      </th>
+
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for post <- @data do %>
+    <tr>
+      <td><%= post.id %></td>
+      <td class="truncate"><%= post.title %></td>
+      <td class="truncate"><%= post.body %></td>
+      <td class="truncate"><%= post.user_id %></td>
+      <td><%= Timex.format!(post.inserted_at, "%b %d, %Y %I:%M %p", :strftime) %></td>
+      <td>
+        <%= link("Show", to: Routes.post_path(@conn, :show, post.id)) %>
+      </td>
+      <td>
+        <%= link("Edit", to: Routes.post_path(@conn, :edit, post.id)) %>
+      </td>
+      <td>
+        <%= link("Delete", to: Routes.post_path(@conn, :delete, post.id), data: [confirm: "Really?"]) %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

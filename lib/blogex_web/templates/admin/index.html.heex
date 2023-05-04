@@ -1,0 +1,32 @@
+<h1>Admin dashboard</h1>
+<div class="tabs">
+  <ul class="tab-nav">
+    <%= if @tab == "users" do %>
+      <li class="active"><a href={ Routes.admin_path(@conn, :index, tab: "users") }>Users</a></li>
+      <li><a href={ Routes.admin_path(@conn, :index, tab: "posts") }>Posts</a></li>
+    <% else %>
+      <li><a href={ Routes.admin_path(@conn, :index, tab: "users") }>Users</a></li>
+      <li class="active"><a href={ Routes.admin_path(@conn, :index, tab: "posts") }>Posts</a></li>
+    <% end %>
+    <li class="btn-container">
+      <p class="small-text"><%= @total_count %> rows</p>
+      <div class="btn-group">
+        <button class="left" onclick={ button_helper( @conn, :page, @page - 1) }><span class="fa fa-arrow-left"></span></button>
+        <input type="hidden" id="path" value={ cur_path(@conn) }>
+        <button class="center" id="redirect-button" ><%= @page %> of <%= @total_pages %></button>
+        <button class="right" onclick={ button_helper( @conn, :page, @page + 1) }><span class="fa fa-arrow-right"></span></button>
+
+      </div>
+    </li>
+  </ul>
+
+  <div class="tab-content">
+    <div class="tab-pane active table-font">
+      <%= if @tab == "users" do %>
+        <%= render "_users_table.html", assigns %>
+      <% else %>
+        <%= render "_posts_table.html", assigns %>
+      <% end %>
+    </div>
+  </div>
+</div>

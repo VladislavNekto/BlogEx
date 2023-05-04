@@ -1,0 +1,26 @@
+---
+version: '3.8'
+services:
+  db:
+    image: postgres:12.2-alpine
+    restart: always
+    container_name: blogex_db
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      DATABASE_URL: ecto://postgres:postgres@blogex_db:5432/postgres
+      SECRET_KEY_BASE: "M4fO7CxgMxP6RyC5BmeWHRM42lAL7Cz06wHkY7VQmHbYI53UEK+TySrWk2RwRDW0"
+      ADMIN_NAME: "Admin"
+      ADMIN_EMAIL: "admin@admin.com"
+      ADMIN_PASSWORD: "roottooradmin"
+      IMAGES_PATH: "/app/uploads/"
+    ports:
+      - 127.0.0.1:4000:4000
+    depends_on:
+      - db

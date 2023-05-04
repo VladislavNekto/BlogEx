@@ -1,0 +1,40 @@
+<div class="inline-sort">
+  <a href={ new_path(@conn, sort_by: "inserted_at", order: toggle_direction(@order)) }>
+    Date
+    <%= if @sort_by == :inserted_at do %>
+      <span class={ "fa fa-sort-#{@order}" }></span>
+    <% end %>
+  </a>
+  <a href={ new_path(@conn, sort_by: "title", order: toggle_direction(@order)) }>
+    Title
+    <%= if @sort_by == :title do %>
+      <span class={ "fa fa-sort-#{@order}" }></span>
+    <% end %>
+  </a>
+  <a href={ new_path(@conn, sort_by: "views", order: toggle_direction(@order)) }>
+    Views
+    <%= if @sort_by == :views do %>
+      <span class={ "fa fa-sort-#{@order}" }></span>
+    <% end %>
+  </a>
+</div>
+
+<div class="posts">
+  <%= for post <- @posts do %>
+  <div class="post">
+    <div class="post-header">
+      <h2 class="post-title truncate-post"><a href={Routes.post_path(@conn, :show, post.id)}><%= post.title %></a></h2>
+      <p class="post-author truncate"><a href={Routes.blog_path(@conn, :show, post.user.name)}><%= post.user.name %></a></p>
+    </div>
+    <div class="post-body">
+      <p class="post-text"><%= post.body %></p>
+      <div class="post-meta">
+        <span class="post-date"><%= Timex.format!(post.inserted_at, "%b %d, %Y %I:%M %p", :strftime) %></span>
+        <span class="post-views-count">Views: <%= post.views %></span>
+      </div>
+    </div>
+  </div>
+  <% end %>
+</div>
+
+<%= render "_paginator.html", assigns %>

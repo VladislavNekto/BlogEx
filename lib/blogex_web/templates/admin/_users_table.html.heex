@@ -1,0 +1,48 @@
+<table>
+  <thead>
+    <tr>
+      <th>
+        <a class="p" href={ Routes.admin_path(@conn, :index, sort_by: "id", order: toggle_direction(@order)) }>
+        ID
+        <%= if @sort_by == :id do %>
+            <span class={ "fa fa-sort-#{@order}" }></span>
+        <% end %>
+        </a>
+      </th>
+      <th>
+        <a href={ Routes.admin_path(@conn, :index, sort_by: "email", order: toggle_direction(@order)) }>
+        Email
+        <%= if @sort_by == :email do %>
+            <span class={ "fa fa-sort-#{@order}" }></span>
+        <% end %>
+        </a>
+      </th>
+      <th>
+        <a href={ Routes.admin_path(@conn, :index, sort_by: "name", order: toggle_direction(@order)) }>
+        Name
+        <%= if @sort_by == :name do %>
+            <span class={ "fa fa-sort-#{@order}" }></span>
+        <% end %>
+        </a>
+      </th>
+      <th>
+        <a href={ Routes.admin_path(@conn, :index, sort_by: "inserted_at", order: toggle_direction(@order)) }>
+        Registration Date
+        <%= if @sort_by == :inserted_at do %>
+            <span class={ "fa fa-sort-#{@order}" }></span>
+        <% end %>
+        </a>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for user <- @data do %>
+    <tr>
+      <td><%= user.id %></td>
+      <td class="truncate"><%= user.email %></td>
+      <td class="truncate"><%= user.name %></td>
+      <td><%= Timex.format!(user.inserted_at, "%b %d, %Y %I:%M %p", :strftime) %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

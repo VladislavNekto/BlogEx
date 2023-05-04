@@ -1,0 +1,43 @@
+<section class="container">
+  <div class="row">
+    <div class="column">
+      <h2 class="post-title"><%= @post.title %></h2>
+      <%= if @post.image != "" do %>
+        <img class="post-image" src={Routes.static_path(@conn, @post.image)} alt={ @post.title }>
+      <% end %>
+      <p class="post-body"><%= @post.body %></p>
+      <p class="post-author">By <%= @post.user.name %> (<%= @post.user.email %>)</p>
+      <a href={ Routes.post_path(@conn, :edit, @post.id) } class="button">Edit</a>
+      <form action={ Routes.post_path(@conn, :delete, @post.id) } method="get" onsubmit="return confirm('Are you sure?');">
+         <button type="submit" class="button button-outline">Delete</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="column">
+      <h3 class="comments-title"><%= length(@comments) %> Comments</h3>
+
+      <ul class="comment-list">
+        <%= for comment <- @comments do %>
+          <li class="comment">
+            <p class="comment-author"><%= comment.user.name %> (<%= comment.user.email %>)</p>
+            <p class="comment-body"><%= comment.body %></p>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+
+<.form let={f} for={@changeset} action={Routes.comment_path(@conn, :create)}>
+  <%= hidden_input f, :post_id, value: @post.id %>
+
+  <%= label f, :body, "Post Comment" %>
+  <%= textarea f, :body %>
+  <%= error_tag f, :body %>
+
+  <%= submit "Post" %>
+</.form>
+
+
+</section>

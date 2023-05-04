@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="csrf-token" content={csrf_token_value()}>
+    <%= live_title_tag assigns[:page_title] || "Blogex", suffix: " · Blogex" %>
+    <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")}/>
+    <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script>
+
+    <script src="https://kit.fontawesome.com/735ab8888f.js" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <div class="navbar-background">
+      <nav class="navbar">
+          <div class="navbar-brand">
+            <a href="/" class="navbar-logo">My Blog</a>
+          </div>
+          <%= render "_user_menu.html", assigns %>
+      </nav>
+    </div>
+    <div class="spacer"></div>
+    <%= @inner_content %>
+  </body>
+</html>
