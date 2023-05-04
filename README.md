@@ -11,6 +11,10 @@ Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 # To start in docker:
 `docker-compose up`
 
+## Default admin credentials
+Email: admin@admin.com 
+Password: roottooradmin
+
 ## Learn more
 
   * Official website: https://www.phoenixframework.org/
